@@ -1,0 +1,78 @@
+[gd_scene load_steps=5 format=3 uid="uid://cehk3iaorse1n"]
+
+[ext_resource type="FontFile" uid="uid://cin3npj0vpwt4" path="res://Roboto/Roboto-VariableFont_wdth,wght.ttf" id="1_t87cd"]
+[ext_resource type="Script" path="res://Control.cs" id="1_xt6t7"]
+[ext_resource type="FontFile" uid="uid://cadoxkkcviqqs" path="res://Raleway/Raleway-VariableFont_wght.ttf" id="2_n3mjo"]
+[ext_resource type="Texture2D" uid="uid://cfvbpwyo6bglm" path="res://play.png" id="4_i8ok0"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -65.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xt6t7")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 91.0
+offset_right = 300.0
+offset_bottom = 121.0
+theme_override_fonts/font = ExtResource("1_t87cd")
+editable = false
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 318.0
+offset_top = 91.0
+offset_right = 373.0
+offset_bottom = 121.0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 13
+text = "..."
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 21.0
+offset_right = 263.0
+offset_bottom = 55.0
+theme_override_fonts/font = ExtResource("1_t87cd")
+theme_override_font_sizes/font_size = 24
+text = "Snap To Sheet v1.0"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 55.0
+offset_right = 260.0
+offset_bottom = 80.0
+theme_override_fonts/font = ExtResource("2_n3mjo")
+theme_override_font_sizes/font_size = 12
+text = "Copyright © 2025 Max-D Tech"
+
+[node name="TextEdit" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 140.0
+offset_right = 444.0
+offset_bottom = 301.0
+theme_override_fonts/font = ExtResource("1_t87cd")
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 478.0
+offset_top = 268.0
+offset_right = 561.0
+offset_bottom = 300.0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 13
+text = "Start"
+icon = ExtResource("4_i8ok0")
+expand_icon = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
