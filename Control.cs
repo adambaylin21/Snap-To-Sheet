@@ -3,12 +3,12 @@ using System;
 
 public partial class Control : Godot.Control
 {
-	LineEdit inputPatch; Button folderBrowser;
+	LineEdit pathFolder; Button chooseFolder;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		inputPatch = GetNode<LineEdit>("./inputPatch");
-		folderBrowser = GetNode<Button>("./folderBrowser");
+		pathFolder = GetNode<LineEdit>("./pathFolder");
+		chooseFolder = GetNode<Button>("./chooseFolder");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

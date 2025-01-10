@@ -16,7 +16,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xt6t7")
 
-[node name="LineEdit" type="LineEdit" parent="."]
+[node name="pathFolder" type="LineEdit" parent="."]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 91.0
@@ -25,7 +25,7 @@ offset_bottom = 121.0
 theme_override_fonts/font = ExtResource("1_t87cd")
 editable = false
 
-[node name="Button" type="Button" parent="."]
+[node name="chooseFolder" type="Button" parent="."]
 layout_mode = 0
 offset_left = 318.0
 offset_top = 91.0
@@ -55,7 +55,7 @@ theme_override_fonts/font = ExtResource("2_n3mjo")
 theme_override_font_sizes/font_size = 12
 text = "Copyright © 2025 Max-D Tech"
 
-[node name="TextEdit" type="TextEdit" parent="."]
+[node name="logOutput" type="TextEdit" parent="."]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 140.0
@@ -63,7 +63,7 @@ offset_right = 444.0
 offset_bottom = 301.0
 theme_override_fonts/font = ExtResource("1_t87cd")
 
-[node name="Button2" type="Button" parent="."]
+[node name="startSnap" type="Button" parent="."]
 layout_mode = 0
 offset_left = 478.0
 offset_top = 268.0
@@ -75,4 +75,4 @@ text = "Start"
 icon = ExtResource("4_i8ok0")
 expand_icon = true
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="chooseFolder" to="." method="_on_button_pressed"]
