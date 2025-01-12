@@ -16,12 +16,12 @@ config/features=PackedStringArray("4.3", "C#", "GL Compatibility")
 boot_splash/show_image=false
 boot_splash/fullsize=false
 boot_splash/use_filter=false
-config/icon="res://chat.png"
+config/icon="res://resource/chat.png"
 
 [display]
 
-window/size/viewport_width=595
-window/size/viewport_height=343
+window/size/viewport_width=800
+window/size/viewport_height=440
 window/size/resizable=false
 
 [dotnet]

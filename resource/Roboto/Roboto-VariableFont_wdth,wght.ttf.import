@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://cadoxkkcviqqs"
-path="res://.godot/imported/Raleway-VariableFont_wght.ttf-4bcb893d38bad649462c7cbfed5809c6.fontdata"
+uid="uid://cin3npj0vpwt4"
+path="res://.godot/imported/Roboto-VariableFont_wdth,wght.ttf-a89a95e7c94bff0151d6043e75ba1934.fontdata"
 
 [deps]
 
-source_file="res://Raleway/Raleway-VariableFont_wght.ttf"
-dest_files=["res://.godot/imported/Raleway-VariableFont_wght.ttf-4bcb893d38bad649462c7cbfed5809c6.fontdata"]
+source_file="res://resource/Roboto/Roboto-VariableFont_wdth,wght.ttf"
+dest_files=["res://.godot/imported/Roboto-VariableFont_wdth,wght.ttf-a89a95e7c94bff0151d6043e75ba1934.fontdata"]
 
 [params]
 

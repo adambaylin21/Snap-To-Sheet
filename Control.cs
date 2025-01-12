@@ -18,6 +18,7 @@ public partial class Control : Godot.Control
 
 	private void _on_button_pressed()
 	{
-		Console.WriteLine("Oke");
+		
+
 	}
 }
