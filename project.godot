@@ -23,6 +23,7 @@ config/icon="res://resource/chat.png"
 window/size/viewport_width=800
 window/size/viewport_height=440
 window/size/resizable=false
+window/subwindows/embed_subwindows=false
 
 [dotnet]
 
