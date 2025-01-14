@@ -16,13 +16,13 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xt6t7")
 metadata/_edit_horizontal_guides_ = [349.0, 131.0, 168.0, 392.0]
-metadata/_edit_vertical_guides_ = [524.0, 772.0]
+metadata/_edit_vertical_guides_ = [523.0, 772.0, 491.0]
 
 [node name="pathFolder" type="LineEdit" parent="."]
 layout_mode = 0
 offset_left = 30.0
 offset_top = 132.0
-offset_right = 366.0
+offset_right = 418.0
 offset_bottom = 168.0
 theme_override_fonts/font = ExtResource("2_vbdkw")
 placeholder_text = "  Input Folder"
@@ -31,9 +31,9 @@ context_menu_enabled = false
 
 [node name="chooseFolder" type="Button" parent="."]
 layout_mode = 0
-offset_left = 406.0
+offset_left = 435.0
 offset_top = 132.0
-offset_right = 461.0
+offset_right = 490.0
 offset_bottom = 168.0
 mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("2_vbdkw")
@@ -66,7 +66,7 @@ text = "Copyright © 2025 Max-D Tech"
 layout_mode = 0
 offset_left = 30.0
 offset_top = 188.0
-offset_right = 498.0
+offset_right = 491.0
 offset_bottom = 349.0
 theme_override_fonts/font = ExtResource("2_vbdkw")
 editable = false
@@ -171,5 +171,18 @@ ok_button_text = "Select Current Folder"
 file_mode = 2
 access = 2
 
+[node name="FileDialog2" type="FileDialog" parent="."]
+auto_translate_mode = 1
+title = "Open a Directory"
+initial_position = 1
+size = Vector2i(600, 440)
+wrap_controls = false
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+
 [connection signal="pressed" from="chooseFolder" to="." method="_on_button_pressed"]
-[connection signal="dir_selected" from="FileDialog" to="." method="_on_file_dialog_dir_selected"]
+[connection signal="pressed" from="startSnap" to="." method="_on_start_snap_pressed"]
+[connection signal="pressed" from="ChooseSave" to="." method="_on_choose_save_pressed"]
+[connection signal="dir_selected" from="FileDialog" to="." method="_on_folder_selected"]
+[connection signal="dir_selected" from="FileDialog2" to="." method="_on_save_directory_selected"]

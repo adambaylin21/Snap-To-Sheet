@@ -6,14 +6,17 @@ using System.Linq;
 public partial class Control : Godot.Control
 {
 	LineEdit pathFolder; Button chooseFolder; FileDialog FileDialog; Label statusNumber;
+	FileDialog FileDialog2; LineEdit savePatch;
 
 	string configure = @"module/configure.json";
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		pathFolder = GetNode<LineEdit>("./pathFolder");
+		savePatch = GetNode<LineEdit>("./savePatch");
 		chooseFolder = GetNode<Button>("./chooseFolder");
 		FileDialog = GetNode<FileDialog>("./FileDialog");
+		FileDialog2 = GetNode<FileDialog>("./FileDialog2");
 		statusNumber = GetNode<Label>("./statusNumber");
 
 		ConfigureFile content = JsonHelper.ReadJson<ConfigureFile>(configure);
@@ -22,6 +25,10 @@ public partial class Control : Godot.Control
 			pathFolder.Text = ShortenPath(content.pathFolder);
 			int fileCount = CountFilesInFolder(content.pathFolder);
 			statusNumber.Text = fileCount.ToString();
+		}
+		if (content.pathSave != null)
+		{
+			savePatch.Text = ShortenPath(content.pathSave, 20);
 		}
 	}
 
@@ -34,7 +41,18 @@ public partial class Control : Godot.Control
 	{
 		FileDialog.Popup();
 	}
-	private void _on_file_dialog_dir_selected(string path)
+
+	private void _on_choose_save_pressed()
+	{
+		FileDialog2.Popup();
+	}
+
+	private void _on_start_snap_pressed()
+	{
+		Console.WriteLine("Oke");
+	}
+
+	private void _on_folder_selected(string path)
 	{	
 		ConfigureFile content = JsonHelper.ReadJson<ConfigureFile>(configure);
 		content.pathFolder = path;
@@ -44,7 +62,16 @@ public partial class Control : Godot.Control
 		statusNumber.Text = fileCount.ToString();
 
 	}
-	private string ShortenPath(string path, int maxLength = 30)
+
+	private void _on_save_directory_selected(string path)
+	{	
+		ConfigureFile content = JsonHelper.ReadJson<ConfigureFile>(configure);
+		content.pathSave = path;
+		JsonHelper.WriteJson(configure, content);
+		savePatch.Text = ShortenPath(path, 20);
+	}
+
+	private string ShortenPath(string path, int maxLength = 45)
 	{
 		if (path.Length <= maxLength)
 		{
