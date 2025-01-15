@@ -6,18 +6,20 @@ using System.Linq;
 public partial class Control : Godot.Control
 {
 	LineEdit pathFolder; Button chooseFolder; FileDialog FileDialog; Label statusNumber;
-	FileDialog FileDialog2; LineEdit savePatch;
+	FileDialog FileDialog2; LineEdit savePath; SpinBox SpinBox; Label status;
 
 	string configure = @"module/configure.json";
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		pathFolder = GetNode<LineEdit>("./pathFolder");
-		savePatch = GetNode<LineEdit>("./savePatch");
+		savePath = GetNode<LineEdit>("./savePath");
 		chooseFolder = GetNode<Button>("./chooseFolder");
 		FileDialog = GetNode<FileDialog>("./FileDialog");
 		FileDialog2 = GetNode<FileDialog>("./FileDialog2");
 		statusNumber = GetNode<Label>("./statusNumber");
+		status = GetNode<Label>("./status");
+		SpinBox = GetNode<SpinBox>("./SpinBox");
 
 		ConfigureFile content = JsonHelper.ReadJson<ConfigureFile>(configure);
 		if (content.pathFolder != null)
@@ -28,7 +30,7 @@ public partial class Control : Godot.Control
 		}
 		if (content.pathSave != null)
 		{
-			savePatch.Text = ShortenPath(content.pathSave, 20);
+			savePath.Text = ShortenPath(content.pathSave, 20);
 		}
 	}
 
@@ -49,7 +51,13 @@ public partial class Control : Godot.Control
 
 	private void _on_start_snap_pressed()
 	{
-		Console.WriteLine("Oke");
+		ConfigureFile content = JsonHelper.ReadJson<ConfigureFile>(configure);
+		if (content.pathFolder != null || content.pathSave != null)
+		{
+			status.Text = "Please select folder and save path";
+			// status.Modulate = new Color (0.9f,0.2f,0,1);
+		}
+
 	}
 
 	private void _on_folder_selected(string path)
@@ -68,7 +76,7 @@ public partial class Control : Godot.Control
 		ConfigureFile content = JsonHelper.ReadJson<ConfigureFile>(configure);
 		content.pathSave = path;
 		JsonHelper.WriteJson(configure, content);
-		savePatch.Text = ShortenPath(path, 20);
+		savePath.Text = ShortenPath(path, 20);
 	}
 
 	private string ShortenPath(string path, int maxLength = 45)

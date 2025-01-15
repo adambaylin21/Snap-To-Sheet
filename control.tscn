@@ -98,7 +98,7 @@ text = "About"
 icon = ExtResource("4_ex4e0")
 expand_icon = true
 
-[node name="savePatch" type="LineEdit" parent="."]
+[node name="savePath" type="LineEdit" parent="."]
 layout_mode = 0
 offset_left = 572.0
 offset_top = 313.0
@@ -129,22 +129,22 @@ default_color = Color(0.241156, 0.241156, 0.241156, 1)
 
 [node name="totalImage" type="Label" parent="."]
 layout_mode = 0
-offset_left = 526.0
-offset_top = 185.0
-offset_right = 761.0
-offset_bottom = 210.0
+offset_left = 529.0
+offset_top = 245.0
+offset_right = 764.0
+offset_bottom = 270.0
 theme_override_fonts/font = ExtResource("2_vbdkw")
 theme_override_font_sizes/font_size = 16
-text = "Total Image"
+text = "Total Images"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="statusNumber" type="Label" parent="."]
 layout_mode = 0
-offset_left = 528.0
-offset_top = 217.0
-offset_right = 763.0
-offset_bottom = 272.0
+offset_left = 529.0
+offset_top = 188.0
+offset_right = 764.0
+offset_bottom = 243.0
 theme_override_fonts/font = ExtResource("2_vbdkw")
 theme_override_font_sizes/font_size = 46
 text = "0000"
@@ -156,9 +156,9 @@ offset_left = 422.0
 offset_top = 379.0
 offset_right = 773.0
 offset_bottom = 404.0
+theme_override_colors/font_color = Color(0.988235, 0.760784, 0, 1)
 theme_override_fonts/font = ExtResource("2_vbdkw")
 theme_override_font_sizes/font_size = 16
-text = "Status..."
 horizontal_alignment = 2
 vertical_alignment = 1
 
@@ -180,6 +180,24 @@ wrap_controls = false
 ok_button_text = "Select Current Folder"
 file_mode = 2
 access = 2
+
+[node name="threads" type="Label" parent="."]
+offset_left = 526.0
+offset_top = 137.0
+offset_right = 673.0
+offset_bottom = 162.0
+theme_override_fonts/font = ExtResource("2_vbdkw")
+theme_override_font_sizes/font_size = 16
+text = "Number of threads"
+vertical_alignment = 1
+
+[node name="SpinBox" type="SpinBox" parent="."]
+layout_mode = 0
+offset_left = 686.0
+offset_top = 134.0
+offset_right = 771.0
+offset_bottom = 165.0
+value = 5.0
 
 [connection signal="pressed" from="chooseFolder" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="startSnap" to="." method="_on_start_snap_pressed"]
