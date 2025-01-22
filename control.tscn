@@ -182,6 +182,7 @@ file_mode = 2
 access = 2
 
 [node name="threads" type="Label" parent="."]
+layout_mode = 0
 offset_left = 526.0
 offset_top = 137.0
 offset_right = 673.0
