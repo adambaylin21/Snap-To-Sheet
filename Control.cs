@@ -11,20 +11,20 @@ using System.Collections.Generic;
 public partial class Control : Godot.Control
 {
 	LineEdit pathFolder; Button chooseFolder; FileDialog FileDialog; Label statusNumber;
-	FileDialog FileDialog2; LineEdit savePath; SpinBox SpinBox; Label status;
+	LineEdit apiLink; SpinBox SpinBox; Label status; TextEdit logOutput;
 
 	string configure = @"module/configure.json";
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		pathFolder = GetNode<LineEdit>("./pathFolder");
-		savePath = GetNode<LineEdit>("./savePath");
+		apiLink = GetNode<LineEdit>("./apiLink");
 		chooseFolder = GetNode<Button>("./chooseFolder");
 		FileDialog = GetNode<FileDialog>("./FileDialog");
-		FileDialog2 = GetNode<FileDialog>("./FileDialog2");
 		statusNumber = GetNode<Label>("./statusNumber");
 		status = GetNode<Label>("./status");
 		SpinBox = GetNode<SpinBox>("./SpinBox");
+		logOutput = GetNode<TextEdit>("./logOutput");
 
 		ConfigureFile content = JsonHelper.ReadJson<ConfigureFile>(configure);
 		if (content.pathFolder != null)
@@ -34,9 +34,9 @@ public partial class Control : Godot.Control
 			int fileCount = files.Length;
 			statusNumber.Text = fileCount.ToString();
 		}
-		if (content.pathSave != null)
+		if (content.apiLink != null)
 		{
-			savePath.Text = ShortenPath(content.pathSave, 20);
+			apiLink.Text = content.apiLink;
 		}
 	}
 
@@ -50,9 +50,11 @@ public partial class Control : Godot.Control
 		FileDialog.Popup();
 	}
 
-	private void _on_choose_save_pressed()
+	private void _on_api_link_text_changed(string newLink)
 	{
-		FileDialog2.Popup();
+		ConfigureFile content = JsonHelper.ReadJson<ConfigureFile>(configure);
+		content.apiLink = newLink;
+		JsonHelper.WriteJson(configure, content);
 	}
 
 	private async void _on_start_snap_pressed()
@@ -60,21 +62,25 @@ public partial class Control : Godot.Control
 		try
 		{
 			ConfigureFile content = JsonHelper.ReadJson<ConfigureFile>(configure);
-			if (content.pathFolder == null || content.pathSave == null)
+			if (content.pathFolder == "" || content.apiLink == "")
 			{
-				status.Text = "Please select folder and save path";
+				status.Text = "Please select folder and API link";
 				// status.Modulate = new Color (0.9f,0.2f,0,1);
 				return;
 			}
-
+			status.Text = "";
 			string[] files = GetFilesInFolder(content.pathFolder);
-			int maxParallelUploads = 1;
-			List<string> results = await SnapFile(files, maxParallelUploads);
+			
+			int delay = (int)SpinBox.Value;
+			int delayBetweenUploads = delay * 1000;
+			string url = content.apiLink;
+		
+			List<string> results = await SnapFile(files, delayBetweenUploads, url);
 
 			foreach (var result in results)
-        	{
-            	Console.WriteLine(result);
-        	}
+			{
+				logOutput.Text += result + "\n";
+			}
 
 		}
 		catch (Exception ex)
@@ -93,14 +99,6 @@ public partial class Control : Godot.Control
 		int fileCount = files.Length;
 		statusNumber.Text = fileCount.ToString();
 
-	}
-
-	private void _on_save_directory_selected(string path)
-	{
-		ConfigureFile content = JsonHelper.ReadJson<ConfigureFile>(configure);
-		content.pathSave = path;
-		JsonHelper.WriteJson(configure, content);
-		savePath.Text = ShortenPath(path, 20);
 	}
 
 	private string ShortenPath(string path, int maxLength = 45)
@@ -136,20 +134,23 @@ public partial class Control : Godot.Control
 		return files;
 	}
 
-	static async Task<List<string>> SnapFile(string[] files, int maxParallelUploads)
+	static async Task<List<string>> SnapFile(string[] files, int delayBetweenUploads, string url)
 	{
-		// string url = "https://maxdtech.mule-discus.ts.net/webhook-test/loadimg";
-		string url = "http://127.0.0.1:3179/api/ocr";
-		var semaphore = new SemaphoreSlim(maxParallelUploads);
 		var results = new List<string>();
 
-		var tasks = files.Select(async file =>
+		foreach (var file in files)
 		{
-			await semaphore.WaitAsync();
 			try
 			{
+				// Thực hiện upload ảnh
 				string result = await UploadImageAsync(file, url);
-				results.Add($"{file} | {result}");
+
+				// Lấy 5 ký tự cuối cùng của tên file
+				string namefile = file.Length >= 15 ? file.Substring(file.Length - 15) : file;
+
+				// Thêm kết quả vào danh sách
+				results.Add($"{namefile} | {result}");
+
 				// Console.WriteLine($"Upload {file}: {result}");
 			}
 			catch (Exception ex)
@@ -157,12 +158,11 @@ public partial class Control : Godot.Control
 				results.Add($"Error {file}: {ex.Message}");
 				Console.WriteLine($"Error {file}: {ex.Message}");
 			}
-			finally
-			{
-				semaphore.Release();
-			}
-		});
-		await Task.WhenAll(tasks);
+
+			// Nghỉ một khoảng thời gian trước khi upload file tiếp theo
+			await Task.Delay(delayBetweenUploads);
+		}
+
 		return results;
 	}
 
@@ -209,6 +209,3 @@ public partial class Control : Godot.Control
 
 
 }
-
-
-

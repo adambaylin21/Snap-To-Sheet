@@ -4,7 +4,7 @@ using System.IO;
 public class ConfigureFile
 {
 public string pathFolder { get; set; }
-public string pathSave { get; set; }
+public string apiLink { get; set; }
 }
 
 public class JsonHelper

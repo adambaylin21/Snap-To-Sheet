@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cfvbpwyo6bglm" path="res://resource/play.png" id="3_nfk3o"]
 [ext_resource type="Texture2D" uid="uid://d2nv4kvjnav8a" path="res://resource/folder.png" id="3_ptjq2"]
 [ext_resource type="Texture2D" uid="uid://p67mr32epokx" path="res://resource/info.png" id="4_ex4e0"]
-[ext_resource type="Texture2D" uid="uid://byncous0h7lct" path="res://resource/floppy.png" id="6_i4wak"]
+[ext_resource type="Texture2D" uid="uid://e6vgspqgxbk5" path="res://resource/code.png" id="6_r8icx"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -98,17 +98,16 @@ text = "About"
 icon = ExtResource("4_ex4e0")
 expand_icon = true
 
-[node name="savePath" type="LineEdit" parent="."]
+[node name="apiLink" type="LineEdit" parent="."]
 layout_mode = 0
 offset_left = 572.0
 offset_top = 313.0
 offset_right = 771.0
 offset_bottom = 349.0
 theme_override_fonts/font = ExtResource("2_vbdkw")
-placeholder_text = "  Save Patch"
-editable = false
+placeholder_text = "API"
 
-[node name="ChooseSave" type="Button" parent="."]
+[node name="IconAPI" type="Button" parent="."]
 layout_mode = 0
 offset_left = 523.0
 offset_top = 313.0
@@ -117,7 +116,7 @@ offset_bottom = 349.0
 mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("2_vbdkw")
 theme_override_font_sizes/font_size = 13
-icon = ExtResource("6_i4wak")
+icon = ExtResource("6_r8icx")
 icon_alignment = 1
 expand_icon = true
 
@@ -171,16 +170,6 @@ ok_button_text = "Select Current Folder"
 file_mode = 2
 access = 2
 
-[node name="FileDialog2" type="FileDialog" parent="."]
-auto_translate_mode = 1
-title = "Open a Directory"
-initial_position = 1
-size = Vector2i(600, 440)
-wrap_controls = false
-ok_button_text = "Select Current Folder"
-file_mode = 2
-access = 2
-
 [node name="threads" type="Label" parent="."]
 layout_mode = 0
 offset_left = 526.0
@@ -189,7 +178,7 @@ offset_right = 673.0
 offset_bottom = 162.0
 theme_override_fonts/font = ExtResource("2_vbdkw")
 theme_override_font_sizes/font_size = 16
-text = "Number of threads"
+text = "Delay time (s)"
 vertical_alignment = 1
 
 [node name="SpinBox" type="SpinBox" parent="."]
@@ -202,6 +191,5 @@ value = 5.0
 
 [connection signal="pressed" from="chooseFolder" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="startSnap" to="." method="_on_start_snap_pressed"]
-[connection signal="pressed" from="ChooseSave" to="." method="_on_choose_save_pressed"]
+[connection signal="text_changed" from="apiLink" to="." method="_on_api_link_text_changed"]
 [connection signal="dir_selected" from="FileDialog" to="." method="_on_folder_selected"]
-[connection signal="dir_selected" from="FileDialog2" to="." method="_on_save_directory_selected"]

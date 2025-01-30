@@ -6,7 +6,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program":"/Users/adambaylin/Documents/Godot.app/Contents/MacOS/Godot",
+            "program":"/Users/Adam Baylin/Adam Baylin/Apps/Godot_mono.app/Contents/MacOS/Godot",
             "cwd":"${workspaceFolder}",
             "console": "internalConsole",
             "stopAtEntry": false,
