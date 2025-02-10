@@ -20,8 +20,8 @@ config/icon="res://resource/chat.png"
 
 [display]
 
-window/size/viewport_width=800
-window/size/viewport_height=440
+window/size/viewport_width=682
+window/size/viewport_height=362
 window/size/resizable=false
 window/subwindows/embed_subwindows=false
 
@@ -33,3 +33,4 @@ project/assembly_name="OCRIdea"
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
