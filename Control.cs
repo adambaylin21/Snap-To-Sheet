@@ -13,7 +13,7 @@ public partial class Control : Godot.Control
 	LineEdit pathFolder; Button chooseFolder; FileDialog FileDialog; Label statusNumber;
 	LineEdit apiLink; SpinBox SpinBox; Label status; TextEdit logOutput;
 
-	string configure = @"module/configure.json";
+	string configure;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -25,6 +25,10 @@ public partial class Control : Godot.Control
 		status = GetNode<Label>("./status");
 		SpinBox = GetNode<SpinBox>("./SpinBox");
 		logOutput = GetNode<TextEdit>("./logOutput");
+
+		// For Build on Mac OS - Copy configure to Content
+		// configure = GetConfigPath();
+		configure = "configure.json";
 
 		ConfigureFile content = JsonHelper.ReadJson<ConfigureFile>(configure);
 		if (content.pathFolder != null)
@@ -39,6 +43,18 @@ public partial class Control : Godot.Control
 			apiLink.Text = content.apiLink;
 		}
 	}
+
+	private string GetAppDirectory()
+	{
+		string exePath = OS.GetExecutablePath();
+		return System.IO.Path.GetDirectoryName(exePath); // Lấy thư mục chứa file chạy
+	}
+
+	private string GetConfigPath()
+	{
+		return System.IO.Path.Combine(GetAppDirectory(), "configure.json");
+	}
+
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
